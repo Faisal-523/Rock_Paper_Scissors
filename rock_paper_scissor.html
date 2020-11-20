@@ -5,13 +5,17 @@
   <meta charset="UTF-8"/>
 </head>
 <body>
-    <div class = "score">
-    <p id="info"></p>
+    <div class = "teamlabels">
+        <span id="playerpoints">Player Score</span>
+        <div id="playerscore">0</div>
+    </div>
+    <div class = "teamlabels">
+     <span id="computerpoints">Computer Score</span>
+    <div id="computerscore">0</div>
+    </div>
+    <div id="info">
     </div>
     <div class="keys">
-    <div class = "key">
-    <button id="start">START GAME</button>
-    </div>
     <div class = "key">
     <button id="rock">ROCK</button>
     </div>
@@ -21,6 +25,9 @@
     <div class="key">
     <button id="scissors">SCISSORS</button>
     </div>
+    </div>
+    <div class = "reset">
+        <button id="start">RESET</button>
     </div>
   <script>
       let computerSelection;
@@ -57,43 +64,56 @@
         console.log(`playerSelection = ${playerSelection}. computerSelection = ${computerSelection}`);
 
           if(playerSelection == "rock" && computerSelection == "rock"){
-              //computerScore++;
+            computerscore.textContent = computerScore;
+            playerscore.textContent = playerScore;
               //playerScore++;
-              return `Its a TIE.Player = ${playerScore} . Computer = ${computerScore}`;
+              return `Its a TIE`;
           }
           else if(playerSelection == "paper" && computerSelection == "paper"){
-              //computerScore++;
-              //playerScore++;
-              return `Its a TIE. Player = ${playerScore} . Computer = ${computerScore}` ;
+            computerscore.textContent = computerScore;
+            playerscore.textContent = playerScore;
+              return `Its a TIE` ;
           }
           else if(playerSelection == "scissors" && computerSelection == "scissors"){
-              //computerScore++;
-              //playerScore++;
-              return `Its a TIE. Player = ${playerScore} . Computer = ${computerScore}`;
+            computerscore.textContent = computerScore;
+            playerscore.textContent = playerScore;
+              return `Its a TIE.`;
           }
           else if(playerSelection == "scissors" && computerSelection == "paper"){
               playerScore++;
-              return `You Win. Player = ${playerScore} . Computer = ${computerScore}`;
+              computerscore.textContent = computerScore;
+              playerscore.textContent = playerScore;
+              return `You Win.`;
           }
           else if(playerSelection == "paper" && computerSelection == "scissors"){
               computerScore++;
-              return `Computer Wins. Player = ${playerScore} . Computer = ${computerScore}`;
+              computerscore.textContent = computerScore;
+              playerscore.textContent = playerScore;
+              return `Computer Wins.`;
           }
           else if(playerSelection == "rock" && computerSelection == "paper"){
               computerScore++;
-              return `Computer Wins. Player = ${playerScore} . Computer = ${computerScore}`;
+              computerscore.textContent = computerScore;
+              playerscore.textContent = playerScore;
+              return `Computer Wins.`;
           }
           else if(playerSelection == "paper" && computerSelection == "rock"){
               playerScore++;
-              return `You win. Player = ${playerScore} . Computer = ${computerScore}`;
+              computerscore.textContent = computerScore;
+              playerscore.textContent = playerScore;
+              return `You win.`;
           }
           else if(playerSelection == "rock" && computerSelection == "scissors"){
               playerScore++;
-              return `You win. Player = ${playerScore} . Computer = ${computerScore}`;
+              computerscore.textContent = computerScore;
+              playerscore.textContent = playerScore;
+              return `You win.`;
           }
           else if(playerSelection == "scissors" && computerSelection == "rock"){
               computerScore++;
-              return `Computer wins. Player = ${playerScore} . Computer = ${computerScore}`;
+              computerscore.textContent = computerScore;
+              playerscore.textContent = playerScore;
+              return `Computer wins.`;
           }
           else{
               return `Error. playerSelection = ${playerSelection}. computerSelection = ${computerSelection}`;
@@ -104,15 +124,14 @@
       function checkWinner()
       {
         if(computerScore == 5 && playerScore < 5)
-          gameinfo.textContent = (`Computer wins the game!! playerScore: ${playerScore}  computerScore: ${computerScore}`);
+          info.textContent = (`Computer wins the game!! playerScore: ${playerScore}  computerScore: ${computerScore}`);
             else if(playerScore == 5 && computerScore < 5)
-            gameinfo.textContent = (`You Win the game!! playerScore: ${playerScore}  computerScore: ${computerScore}`);
+            info.textContent = (`You Win the game!! playerScore: ${playerScore}  computerScore: ${computerScore}`);
             else
             {
-                gameinfo.textContent = (`Its a tie!!! playerScore: ${playerScore}  computerScore: ${computerScore}`);
+                info.textContent = (`Its a tie!!! playerScore: ${playerScore}  computerScore: ${computerScore}`);
             }
 
-        info.appendChild(gameinfo);
       }
 
       function optionSelect(e)
@@ -123,9 +142,9 @@
           console.log(playerSelection);
           computerSelection = computerplay();
           //console.log(info);
-          roundinfo.textContent = playRound(playerSelection, computerSelection);
-          roundinfo.setAttribute('id','roundinfo');
-          info.appendChild(roundinfo);
+          info.textContent = playRound(playerSelection, computerSelection);
+          //roundinfo.setAttribute('id','roundinfo');
+          //info.appendChild(roundinfo);
           }
           
           if(computerScore >=5 || playerScore >= 5)
@@ -136,10 +155,10 @@
 
       const game = document.querySelector('#start');
       const info = document.querySelector('#info');
-      const roundinfo = document.createElement('p');
-      const gameinfo = document.createElement('p');
+      const playerscore = document.querySelector('#playerscore');
+      const computerscore = document.querySelector('#computerscore');
       const rock = document.querySelector("#rock");
-      const btn = document.querySelectorAll("button");
+      const btn = document.querySelectorAll("div.keys");
       
       btn.forEach((btn) => btn.addEventListener('click',optionSelect));
 
