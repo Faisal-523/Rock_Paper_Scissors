@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+    <div class = "score">
+    <p id="info"></p>
+    </div>
+    <div class="keys">
+    <div class = "key">
+    <button id="start">START GAME</button>
+    </div>
+    <div class = "key">
+    <button id="rock">ROCK</button>
+    </div>
+    <div class="key">
+    <button id="paper">PAPER</button>
+    </div>
+    <div class="key">
+    <button id="scissors">SCISSORS</button>
+    </div>
+    </div>
+  <script>
+      let computerSelection;
+      let playerSelection;
+      let playerScore = parseInt(0);
+      let computerScore = parseInt(0);
+
+      function computerplay()
+      {
+          let r = Math.floor(Math.random()*3);
+          let s;
+
+          switch(r){
+              case 0:
+              s = "rock";
+              break;
+
+              case 1:
+              s = "paper";
+              break;
+
+              case 2:
+              s = "scissors";
+              break;
+
+              default:
+              console.log("computerplay() error");
+          }
+          return s;
+      }
+
+      function playRound(playerSelection, computerSelection)
+      {
+        console.log(`playerSelection = ${playerSelection}. computerSelection = ${computerSelection}`);
+
+          if(playerSelection == "rock" && computerSelection == "rock"){
+              //computerScore++;
+              //playerScore++;
+              return `Its a TIE.Player = ${playerScore} . Computer = ${computerScore}`;
+          }
+          else if(playerSelection == "paper" && computerSelection == "paper"){
+              //computerScore++;
+              //playerScore++;
+              return `Its a TIE. Player = ${playerScore} . Computer = ${computerScore}` ;
+          }
+          else if(playerSelection == "scissors" && computerSelection == "scissors"){
+              //computerScore++;
+              //playerScore++;
+              return `Its a TIE. Player = ${playerScore} . Computer = ${computerScore}`;
+          }
+          else if(playerSelection == "scissors" && computerSelection == "paper"){
+              playerScore++;
+              return `You Win. Player = ${playerScore} . Computer = ${computerScore}`;
+          }
+          else if(playerSelection == "paper" && computerSelection == "scissors"){
+              computerScore++;
+              return `Computer Wins. Player = ${playerScore} . Computer = ${computerScore}`;
+          }
+          else if(playerSelection == "rock" && computerSelection == "paper"){
+              computerScore++;
+              return `Computer Wins. Player = ${playerScore} . Computer = ${computerScore}`;
+          }
+          else if(playerSelection == "paper" && computerSelection == "rock"){
+              playerScore++;
+              return `You win. Player = ${playerScore} . Computer = ${computerScore}`;
+          }
+          else if(playerSelection == "rock" && computerSelection == "scissors"){
+              playerScore++;
+              return `You win. Player = ${playerScore} . Computer = ${computerScore}`;
+          }
+          else if(playerSelection == "scissors" && computerSelection == "rock"){
+              computerScore++;
+              return `Computer wins. Player = ${playerScore} . Computer = ${computerScore}`;
+          }
+          else{
+              return `Error. playerSelection = ${playerSelection}. computerSelection = ${computerSelection}`;
+          }
+          
+      }
+
+      function checkWinner()
+      {
+        if(computerScore == 5 && playerScore < 5)
+          gameinfo.textContent = (`Computer wins the game!! playerScore: ${playerScore}  computerScore: ${computerScore}`);
+            else if(playerScore == 5 && computerScore < 5)
+            gameinfo.textContent = (`You Win the game!! playerScore: ${playerScore}  computerScore: ${computerScore}`);
+            else
+            {
+                gameinfo.textContent = (`Its a tie!!! playerScore: ${playerScore}  computerScore: ${computerScore}`);
+            }
+
+        info.appendChild(gameinfo);
+      }
+
+      function optionSelect(e)
+      {
+          if(computerScore < 5 && playerScore < 5)
+          {
+          playerSelection = e.target.id;
+          console.log(playerSelection);
+          computerSelection = computerplay();
+          //console.log(info);
+          roundinfo.textContent = playRound(playerSelection, computerSelection);
+          roundinfo.setAttribute('id','roundinfo');
+          info.appendChild(roundinfo);
+          }
+          
+          if(computerScore >=5 || playerScore >= 5)
+          {
+          checkWinner();
+          }
+      }
+
+      const game = document.querySelector('#start');
+      const info = document.querySelector('#info');
+      const roundinfo = document.createElement('p');
+      const gameinfo = document.createElement('p');
+      const rock = document.querySelector("#rock");
+      const btn = document.querySelectorAll("button");
+      
+      btn.forEach((btn) => btn.addEventListener('click',optionSelect));
+
+      function newGame(info)
+      {
+        computerScore= 0;
+        playerScore= 0;
+        location.reload();
+
+      }
+
+      game.addEventListener('click', newGame);
+
+  </script>
+</body>
+</html>
